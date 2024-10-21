@@ -15,17 +15,17 @@ const serverless = require('serverless-http');
  * Externalized through environment variables, which may be set either in `.env` or on the system.
  */
 // Calendar ID to read events from. Can be attained via the "Calendar ID" field in Google Calendar > Calendar Settings > Integrate Calendar
-const CALENDAR_ID = process.env.CALENDAR_ID;
+const CALENDAR_ID = "dickensandballsworth@gmail.com";
 // This is configured in the Google Cloud Console under Credentials
-const API_KEY = process.env.API_KEY;
+const API_KEY = "AIzaSyACmXgmY2bPczjFEU4hezKgO9SsP81HB54";
 // Number of events we'll fetch from the API; default to 10 if undefined
-const NUM_EVENTS_TO_FETCH = process.env.NUM_EVENTS_TO_FETCH || 10;
+const NUM_EVENTS_TO_FETCH = 5;
 // Logging verbosity, default to "info" (which is quiet as to not pollute server logs; "debug" is where we send event output)
-const LOG_VERBOSITY = process.env.LOG_VERBOSITY || "info";
+const LOG_VERBOSITY = "warn";
 // HTTP Port to listen on; default to 3000
 // const HTTP_PORT = process.env.HTTP_PORT || 3000;
 // Number of seconds between refreshing the cache
-const SECONDS_BETWEEN_CACHE_REFRESH = process.env.SECONDS_BETWEEN_CACHE_REFRESH || 60;
+const SECONDS_BETWEEN_CACHE_REFRESH = 60;
 
 /*
  * Constants
