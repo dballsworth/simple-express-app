@@ -195,10 +195,10 @@ router.get('/demo', (req, res) => {
 router.get('/events', (request, response) => {
   response.status(200);
   response.set(HEADER_CONTENT_TYPE, MIME_TYPE_JSON);
-  response.send(fetchEvents());
+  fetchEvents().then(events => {
+    response.send(events);
+  });
   console.log("\nResponse Sent\n");
-  
-  console.log(fetchEvents());
 });
 
 app.use('/.netlify/functions/api', router);
