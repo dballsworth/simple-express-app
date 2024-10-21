@@ -23,7 +23,7 @@ const NUM_EVENTS_TO_FETCH = process.env.NUM_EVENTS_TO_FETCH || 10;
 // Logging verbosity, default to "info" (which is quiet as to not pollute server logs; "debug" is where we send event output)
 const LOG_VERBOSITY = process.env.LOG_VERBOSITY || "info";
 // HTTP Port to listen on; default to 3000
-const HTTP_PORT = process.env.HTTP_PORT || 3000;
+// const HTTP_PORT = process.env.HTTP_PORT || 3000;
 // Number of seconds between refreshing the cache
 const SECONDS_BETWEEN_CACHE_REFRESH = process.env.SECONDS_BETWEEN_CACHE_REFRESH || 60;
 
@@ -64,21 +64,12 @@ let records = [];
  */
 app.use(cors());
 
-app.listen(HTTP_PORT, (error) => {
-  if (!error) {
-    logger.info("Server running on port: " + HTTP_PORT);
-    // Cache the first events after server startup
-    cacheEvents();
-  }
-  else
-    logger.error("Error in starting HTTP Server", error);
-}
-);
-app.get('/events', (request, response) => {
-  response.status(200);
-  response.set(HEADER_CONTENT_TYPE, MIME_TYPE_JSON);
-  response.send(getEvents());
-});
+
+// app.get('/events', (request, response) => {
+//   response.status(200);
+//   response.set(HEADER_CONTENT_TYPE, MIME_TYPE_JSON);
+//   response.send(getEvents());
+// });
 
 // Set up cache refresh
 setInterval(cacheEvents, SECONDS_BETWEEN_CACHE_REFRESH * 1000);
@@ -101,6 +92,7 @@ function getEvents() {
   }
   return calendarEvents;
 }
+
 
 /**
  * Fetch and cache the latest calendar events
@@ -197,6 +189,16 @@ router.get('/demo', (req, res) => {
       name: 'Mohit',
     },
   ]);
+});
+
+
+router.get('/events', (request, response) => {
+  response.status(200);
+  response.set(HEADER_CONTENT_TYPE, MIME_TYPE_JSON);
+  response.send(fetchEvents());
+  console.log("\nResponse Sent\n");
+  
+  console.log(fetchEvents());
 });
 
 app.use('/.netlify/functions/api', router);
